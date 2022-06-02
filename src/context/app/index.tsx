@@ -52,7 +52,9 @@ function AppCtxProvider({ children }: Props) {
           type: "SET_INIT_STATUS",
           payload: { status: "INITIALIZED" },
         });
-      } catch (_) {}
+      } catch (_) {
+        throw new Error("Initialization error");
+      }
     }
 
     async function init() {
