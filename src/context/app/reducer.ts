@@ -1,6 +1,6 @@
 import AppCtxAction from "./action";
 import { AppCtxState } from "./type";
-import { getNewPriceList, getNextId } from "./util";
+import { getNewPriceList, getNextProductId } from "./util";
 
 export default function AppCtxReducer(
   state: AppCtxState,
@@ -8,8 +8,12 @@ export default function AppCtxReducer(
 ): AppCtxState {
   switch (action.type) {
     case "ADD_PRODUCT":
-      const newProductId = getNextId(state.products);
+      const newProductId = getNextProductId(
+        state.products,
+        state.lastProductId
+      );
       const prices = state.prices[newProductId];
+      const nextLastProductId = state.lastProductId + 1;
 
       return {
         ...state,
@@ -21,6 +25,7 @@ export default function AppCtxReducer(
           ...state.prices,
           [newProductId]: getNewPriceList(action.payload.price, prices),
         },
+        lastProductId: nextLastProductId,
       };
 
     case "MODIFY_PRODUCT":
@@ -44,16 +49,18 @@ export default function AppCtxReducer(
       };
 
     case "REMOVE_PRODUCT":
-      const productsAfterRemove = state.products.filter(
-        (product) => product.id !== action.payload.id
-      );
-      const pricesAfterRemove = { ...state.prices };
-      delete pricesAfterRemove[action.payload.id];
+      let removedProducts = [...state.removed];
+      const productsAfterRemove = state.products.filter((product) => {
+        if (product.id !== action.payload.id) {
+          removedProducts.push(product);
+          return true;
+        }
+      });
 
       return {
         ...state,
         products: productsAfterRemove,
-        prices: pricesAfterRemove,
+        removed: removedProducts,
       };
 
     case "INIT":

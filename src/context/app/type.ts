@@ -5,11 +5,19 @@ export type InitStatus =
   | "INITIALIZATION_ERROR";
 export type Price = { id: number; price: number; date: string };
 export type Product = { id: number; name: string };
-export type AppCtxState = {
+export interface AppCtxState {
   products: Product[];
   prices: Record<string, Price[]>;
+  removed: Product[];
   initializeStatus: InitStatus;
-};
+  lastProductId: number;
+}
+export interface AppCtxFull {
+  state: AppCtxState;
+  addProduct: (name: string, price: number) => any;
+  removeProduct: (id: number) => any;
+  modifyProduct: (id: number, name: string, price: number) => any;
+}
 
 interface PriceRes {
   id: number;

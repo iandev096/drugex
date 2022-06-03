@@ -41,6 +41,7 @@ function AppCtxProvider({ children }: Props) {
           const prices: Price[] = cur.prices;
           acc.products.push(product);
           acc.prices[cur.id] = prices;
+          acc.lastProductId += 1;
           return acc;
         }, initialCtxState);
 
