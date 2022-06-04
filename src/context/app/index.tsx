@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useReducer } from "react";
 import AppCtx, { initialCtxState } from "./context";
 import AppCtxReducer from "./reducer";
 import { AppCtxState, Price, Product, ResponseData } from "./type";
-import { fetchProducts, getStoredState } from "./util";
+import { fetchProducts, getStoredState, setStoredState } from "./util";
 
 type Props = {
   children: React.ReactNode | React.ReactNode[];
@@ -13,10 +13,13 @@ function AppCtxProvider({ children }: Props) {
 
   useEffect(
     function handleContextChanges() {
-      console.log(
-        "from handle context changes",
-        JSON.stringify(state, null, " ")
-      );
+      if (state.initializeStatus === "INITIALIZED") {
+        setStoredState(state).then();
+        // TODO: handle error scenario
+        getStoredState().then((state) =>
+          console.log("STATE FROM STORE::", JSON.stringify(state, null, 2))
+        );
+      }
     },
     [state]
   );
@@ -45,8 +48,6 @@ function AppCtxProvider({ children }: Props) {
           return acc;
         }, initialCtxState);
 
-        // console.log("state fromRemote", JSON.stringify(state, null, " "));
-
         dispatch({ type: "INIT", payload: { state } });
 
         dispatch({
@@ -61,8 +62,8 @@ function AppCtxProvider({ children }: Props) {
     async function init() {
       try {
         const state = await getStoredState();
-        // console.log("state fromStoredState", JSON.stringify(state, null, " "));
-        if (state) {
+
+        if (state?.initializeStatus === "INITIALIZED") {
           dispatch({ type: "INIT", payload: { state } });
         } else {
           await fromRemote();

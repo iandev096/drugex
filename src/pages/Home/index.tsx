@@ -24,9 +24,6 @@ export default function Home() {
   const prices = usePrices();
   const { removeProduct } = useActions();
 
-  // console.log("products::", JSON.stringify(products, null, 2));
-  // console.log("selectedPrices::", JSON.stringify(prices, null, 2));
-
   const navigation = useNavigation<HomeNavProps>();
 
   const handlePress = (product: Product) =>

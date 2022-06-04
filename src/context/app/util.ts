@@ -5,17 +5,27 @@ import axios from "axios";
 const APP_KEY = "drugex";
 
 export async function getStoredState(): Promise<AppCtxState | null> {
-  const storedStateSerialized = await SecureStore.getItemAsync(APP_KEY);
+  try {
+    const storedStateSerialized = await SecureStore.getItemAsync(APP_KEY);
 
-  if (storedStateSerialized) {
-    const storedState = JSON.parse(storedStateSerialized);
-    return storedState;
+    if (storedStateSerialized) {
+      console.log("Successfully got state to secureStore");
+      const storedState = JSON.parse(storedStateSerialized);
+      return storedState;
+    }
+    return null;
+  } catch (err) {
+    throw err;
   }
-  return null;
 }
 
 export async function setStoredState(state: AppCtxState) {
-  await SecureStore.setItemAsync(APP_KEY, JSON.stringify(state));
+  try {
+    await SecureStore.setItemAsync(APP_KEY, JSON.stringify(state));
+    console.log("Successfully set state to secureStore");
+  } catch (err) {
+    throw err;
+  }
 }
 
 export function fetchProducts() {

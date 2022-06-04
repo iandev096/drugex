@@ -40,8 +40,6 @@ export default function ProductForm({
     [initialName, initialPrice]
   );
 
-  console.log(Number(price));
-
   const staticOnAction = useRef(onAction).current;
 
   const disabled = useMemo(() => {
@@ -49,10 +47,7 @@ export default function ProductForm({
   }, [name, price]);
 
   const handleAction = useCallback(() => {
-    console.log(Number(price));
     if (!disabled && staticOnAction) {
-      console.log("calling staticOnAction");
-      console.log("price::", price);
       staticOnAction(name, Number(price));
     }
   }, [disabled, staticOnAction, price, name]);

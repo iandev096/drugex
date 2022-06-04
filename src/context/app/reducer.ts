@@ -49,18 +49,19 @@ export default function AppCtxReducer(
       };
 
     case "REMOVE_PRODUCT":
-      let removedProducts = [...state.removed];
+      let removedProduct = [...state.removed];
       const productsAfterRemove = state.products.filter((product) => {
         if (product.id !== action.payload.id) {
-          removedProducts.push(product);
           return true;
+        } else {
+          removedProduct.push(product);
         }
       });
 
       return {
         ...state,
         products: productsAfterRemove,
-        removed: removedProducts,
+        removed: removedProduct,
       };
 
     case "INIT":
