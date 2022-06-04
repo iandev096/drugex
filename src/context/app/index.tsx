@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useEffect, useReducer } from "react";
 import AppCtx, { initialCtxState } from "./context";
+import useAppCtxInit from "./hooks/useAppCtxInit";
 import AppCtxReducer from "./reducer";
-import { AppCtxState, Price, Product, ResponseData } from "./type";
-import { fetchProducts, getStoredState, setStoredState } from "./util";
+import { setStoredState } from "./util";
 
 type Props = {
   children: React.ReactNode | React.ReactNode[];
@@ -11,73 +11,17 @@ type Props = {
 function AppCtxProvider({ children }: Props) {
   const [state, dispatch] = useReducer(AppCtxReducer, initialCtxState);
 
+  useAppCtxInit(state, dispatch);
+
   useEffect(
     function handleContextChanges() {
       if (state.initializeStatus === "INITIALIZED") {
         setStoredState(state).then();
         // TODO: handle error scenario
-        getStoredState().then((state) =>
-          console.log("STATE FROM STORE::", JSON.stringify(state, null, 2))
-        );
       }
     },
     [state]
   );
-
-  useEffect(function handleInit() {
-    if (state.initializeStatus !== "NOT_INITIALIZED") {
-      return;
-    }
-
-    dispatch({
-      type: "SET_INIT_STATUS",
-      payload: { status: "INITIALIZING" },
-    });
-
-    async function fromRemote() {
-      try {
-        const res = await fetchProducts();
-        const data = res.data as ResponseData;
-
-        const state = data.products.reduce<AppCtxState>((acc, cur) => {
-          const product: Product = { id: cur.id, name: cur.name };
-          const prices: Price[] = cur.prices;
-          acc.products.push(product);
-          acc.prices[cur.id] = prices;
-          acc.lastProductId += 1;
-          return acc;
-        }, initialCtxState);
-
-        dispatch({ type: "INIT", payload: { state } });
-
-        dispatch({
-          type: "SET_INIT_STATUS",
-          payload: { status: "INITIALIZED" },
-        });
-      } catch (_) {
-        throw new Error("Initialization error");
-      }
-    }
-
-    async function init() {
-      try {
-        const state = await getStoredState();
-
-        if (state?.initializeStatus === "INITIALIZED") {
-          dispatch({ type: "INIT", payload: { state } });
-        } else {
-          await fromRemote();
-        }
-      } catch (_) {
-        dispatch({
-          type: "SET_INIT_STATUS",
-          payload: { status: "INITIALIZATION_ERROR" },
-        });
-      }
-    }
-
-    init();
-  }, []);
 
   const addProduct = useCallback(
     (name: string, price: number) =>

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import AppCtx from "../context";
+import AppCtx from "../../context";
 
 export default function usePrices() {
   const {
