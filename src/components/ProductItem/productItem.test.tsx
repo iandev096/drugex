@@ -14,15 +14,17 @@ const props: ProductItemProps = {
 
 test('displays correct product name', () => {
     const { getByText } = render(<ProductItem {...props} />)
-   
+
     expect(getByText(new RegExp(props.name, 'i'))).toBeTruthy();
 })
 
 
 test('displays correct product price', () => {
     const { getByText } = render(<ProductItem {...props} />)
+    
+    const latestPriceRegex = new RegExp(props.prices[props.prices.length - 1].price.toString(), 'i');
    
-    expect(getByText(new RegExp(props.prices[props.prices.length - 1].price.toString(), 'i'))).toBeTruthy();
+    expect(getByText(latestPriceRegex)).toBeTruthy();
 })
 
 

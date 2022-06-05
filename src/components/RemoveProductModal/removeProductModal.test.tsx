@@ -16,14 +16,16 @@ const Component = (props: RemoveProductModalProps) => (
 )
 
 test('should render nothing when visible is false', () => {
-    const { queryByText, toJSON } = render(<Component {...props} />);
-    console.log(JSON.stringify(toJSON(), null, 2))
+    const { queryByText } = render(<Component {...props} />);
+   
     expect(queryByText(new RegExp(props.product!.name, 'i'))).toBeNull();
 });
 
 test('should render modal when visible is true', async () => {
     const { findByText } = render(<Component {...props} visible={true} />);
+    
     const productNameRegex = new RegExp(props.product!.name, 'i');
+    
     expect((await findByText(productNameRegex))).toBeTruthy();
 });
 
@@ -36,6 +38,7 @@ test('renders correctly', () => {
 
 test('all buttons work', async () => {
     const { findByTestId, getByTestId } = render(<Component {...props} visible={true} />);
+    
     const cancelButton = await findByTestId('btn:onDismiss');
     const deleteButton = getByTestId('btn:onRemove');
     const logSpy = jest.spyOn(console, 'log');
