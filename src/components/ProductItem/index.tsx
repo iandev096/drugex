@@ -1,9 +1,12 @@
 import { formatDistance, formatRelative } from "date-fns";
-import React from "react";
+import React, { useMemo } from "react";
 import { View } from "react-native";
-import { IconButton, List } from "react-native-paper";
+import { Caption, IconButton, List, Text } from "react-native-paper";
 import { Price } from "../../contexts/app/type";
 import useAppTheme from "../../hooks/useAppTheme";
+import Pill1 from "../icons/Pill1";
+import Pill2 from "../icons/Pill2";
+import PriceItem from "./PriceItem";
 import styles from "./styles";
 
 export type ProductItemProps = {
@@ -11,6 +14,7 @@ export type ProductItemProps = {
   prices: Price[];
   expanded: boolean;
   last?: boolean;
+  even?: boolean;
   onPress?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -21,38 +25,43 @@ export default function ProductItem({
   expanded,
   prices,
   last,
+  even,
   onPress,
   onDelete,
   onEdit,
 }: ProductItemProps) {
   const theme = useAppTheme();
 
+  const Icon = useMemo(() => (even ? Pill1 : Pill2), [even]);
+
   return (
     <View style={[styles(theme).productItem, !last && styles(theme).border]}>
       <List.Accordion
-        right={!expanded ? () => <></> : undefined}
+        right={() => <></>}
         title={`${name} -  $${prices[prices.length - 1]?.price}`}
-        left={(props) => <List.Icon {...props} icon="apps" />}
+        left={() => (
+          <View style={styles(theme).icon}>
+            <Icon />
+          </View>
+        )}
+        style={styles(theme).listAccordion}
         expanded={expanded}
         onPress={onPress}
-        testID='btn:onPress'
+        testID="btn:onPress"
       >
         <List.Item
+          titleStyle={styles(theme).pastPrices}
           title={
             prices.length === 1 ? "No Past Price Available" : "Past Price(s)"
           }
-          titleStyle={{ fontSize: 12, textTransform: "uppercase" }}
+          right={() => <></>}
         />
         {prices
           .map((priceItem) => (
-            <List.Item
-              title={`$${priceItem.price}`}
-              description={`${formatRelative(
-                new Date(priceItem.date),
-                new Date()
-              )} - ${formatDistance(new Date(priceItem.date), new Date())} `}
+            <PriceItem
+              price={priceItem.price}
+              date={priceItem.date}
               key={priceItem.id}
-              testID='listItem'
             />
           ))
           .reverse()
@@ -60,8 +69,18 @@ export default function ProductItem({
       </List.Accordion>
       {!expanded && (
         <View style={styles(theme).buttonGroup}>
-          <IconButton  icon="lead-pencil" onPress={onEdit} testID='btn:onEdit' />
-          <IconButton icon="trash-can" onPress={onDelete} testID='btn:onDelete' />
+          <IconButton
+            size={22}
+            icon="lead-pencil"
+            onPress={onEdit}
+            testID="btn:onEdit"
+          />
+          <IconButton
+            size={22}
+            icon="trash-can"
+            onPress={onDelete}
+            testID="btn:onDelete"
+          />
         </View>
       )}
     </View>
