@@ -9,6 +9,18 @@ const theme = {
   },
 };
 
+export const darkTheme = {
+  ...DefaultTheme,
+  dark: true,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#2A4574',
+    primary: '#0A192F',
+    border: "rgba(255,255,255,0.3)",
+    text: theme.colors.background
+  },
+};
+
 export type Theme = typeof theme;
 
 export default theme;
