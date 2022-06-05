@@ -2,11 +2,11 @@ import { formatDistance, formatRelative } from "date-fns";
 import React from "react";
 import { View } from "react-native";
 import { IconButton, List } from "react-native-paper";
-import { Price } from "../../context/app/type";
+import { Price } from "../../contexts/app/type";
 import useAppTheme from "../../hooks/useAppTheme";
 import styles from "./styles";
 
-type Props = {
+export type ProductItemProps = {
   name: string;
   prices: Price[];
   expanded: boolean;
@@ -24,7 +24,7 @@ export default function ProductItem({
   onPress,
   onDelete,
   onEdit,
-}: Props) {
+}: ProductItemProps) {
   const theme = useAppTheme();
 
   return (
@@ -35,6 +35,7 @@ export default function ProductItem({
         left={(props) => <List.Icon {...props} icon="apps" />}
         expanded={expanded}
         onPress={onPress}
+        testID='btn:onPress'
       >
         <List.Item
           title={
@@ -51,6 +52,7 @@ export default function ProductItem({
                 new Date()
               )} - ${formatDistance(new Date(priceItem.date), new Date())} `}
               key={priceItem.id}
+              testID='listItem'
             />
           ))
           .reverse()
@@ -58,8 +60,8 @@ export default function ProductItem({
       </List.Accordion>
       {!expanded && (
         <View style={styles(theme).buttonGroup}>
-          <IconButton icon="lead-pencil" onPress={onEdit} />
-          <IconButton icon="trash-can" onPress={onDelete} />
+          <IconButton  icon="lead-pencil" onPress={onEdit} testID='btn:onEdit' />
+          <IconButton icon="trash-can" onPress={onDelete} testID='btn:onDelete' />
         </View>
       )}
     </View>

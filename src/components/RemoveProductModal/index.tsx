@@ -1,11 +1,10 @@
 import { View } from "react-native";
-import { Badge, Button, Modal, Portal, Text } from "react-native-paper";
-import { Theme } from "../../../theme";
-import { Product } from "../../context/app/type";
+import { Button, Modal, Portal, Text } from "react-native-paper";
+import { Product } from "../../contexts/app/type";
 import useAppTheme from "../../hooks/useAppTheme";
 import styles from "./styles";
 
-type Props = {
+export type RemoveProductModalProps = {
   visible: boolean;
   product: Product | null;
   onDismiss?: () => void;
@@ -17,7 +16,7 @@ export default function RemoveProductModal({
   product,
   onDismiss,
   onRemove,
-}: Props) {
+}: RemoveProductModalProps) {
   const theme = useAppTheme();
 
   return (
@@ -40,6 +39,7 @@ export default function RemoveProductModal({
             mode="contained"
             icon="close"
             onPress={onDismiss}
+            testID='btn:onDismiss'
           >
             Cancel
           </Button>
@@ -48,6 +48,7 @@ export default function RemoveProductModal({
             mode="contained"
             icon="trash-can-outline"
             onPress={onRemove}
+            testID='btn:onRemove'
           >
             Remove
           </Button>

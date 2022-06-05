@@ -1,4 +1,4 @@
-import AppCtxProvider from "./src/context/app";
+import AppCtxProvider from "./src/contexts/app";
 import AppNavigator from "./src/navigation";
 import { Provider as PaperProvider } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";

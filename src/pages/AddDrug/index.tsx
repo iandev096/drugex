@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import ProductFormScreen from "../../components/screens/ProductForm";
-import useActions from "../../context/app/hooks/selectors/useActions";
+import useActions from "../../contexts/app/hooks/selectors/useActions";
 import { AppStackNavProps } from "../../navigation/app/type";
 
 type AddDrugNavProps = AppStackNavProps<"AddDrug">;
