@@ -76,6 +76,7 @@ export default function Home() {
               key={item.id}
               name={item.name}
               last={isLastItem(index, products)}
+              even={index % 2 === 0}
               prices={prices[item.id]}
               expanded={selected?.id === item.id}
               onPress={() => handlePress(item)}
