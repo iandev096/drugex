@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import ProductFormScreen from "../../components/screens/ProductForm";
-import useActions from "../../contexts/app/hooks/selectors/useActions";
+import useActions from "../../contexts/app/hooks/useActions";
 import useLatestPrice from "../../contexts/app/hooks/selectors/useLatestPrice";
 import useProduct from "../../contexts/app/hooks/selectors/useProduct";
 import { AppStackNavProps, AppStackRoute } from "../../navigation/app/type";

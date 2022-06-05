@@ -5,7 +5,7 @@ import { Button } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProductItem from "../../components/ProductItem";
 import RemoveProductModal from "../../components/RemoveProductModal";
-import useActions from "../../contexts/app/hooks/selectors/useActions";
+import useActions from "../../contexts/app/hooks/useActions";
 import usePrices from "../../contexts/app/hooks/selectors/usePrices";
 import useProducts from "../../contexts/app/hooks/selectors/useProducts";
 import { Product } from "../../contexts/app/type";

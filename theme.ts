@@ -14,9 +14,9 @@ export const darkTheme = {
   dark: true,
   colors: {
     ...DefaultTheme.colors,
-    background: '#2A4574',
-    primary: '#0A192F',
-    border: "rgba(255,255,255,0.3)",
+    primary: '#2A4574',
+    background: '#0A192F',
+    border: "rgba(255,255,255,0.1)",
     text: theme.colors.background
   },
 };
