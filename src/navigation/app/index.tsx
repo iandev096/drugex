@@ -24,7 +24,7 @@ export default function AppStack() {
           headerRight: () => (
             <IconButton
               color={darkMode ? text : background}
-              icon="theme-light-dark"
+              icon={darkMode ? "moon-waning-crescent" : "white-balance-sunny"}
               onPress={toggle}
             />
           ),
