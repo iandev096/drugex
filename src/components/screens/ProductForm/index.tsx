@@ -61,7 +61,7 @@ export default function ProductForm({
         behavior={isIos ? "padding" : "height"}
       >
         <ScrollView contentContainerStyle={styles.scrollView}>
-          <View style={{ marginBottom: 40, marginTop: -HEIGHT * 0.2 }}>
+          <View style={styles.formGroup}>
             <TextInput
               autoCapitalize="words"
               label="Product Name"
