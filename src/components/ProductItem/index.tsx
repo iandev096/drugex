@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { Caption, IconButton, List, Text } from "react-native-paper";
 import { Price } from "../../contexts/app/type";
 import useAppTheme from "../../hooks/useAppTheme";
+import { truncateString } from "../../util/string";
 import Pill1 from "../icons/Pill1";
 import Pill2 from "../icons/Pill2";
 import PriceItem from "./PriceItem";
@@ -38,7 +39,7 @@ export default function ProductItem({
     <View style={[styles(theme).productItem, !last && styles(theme).border]}>
       <List.Accordion
         right={() => <></>}
-        title={`${name} -  $${prices[prices.length - 1]?.price}`}
+        title={`${truncateString(name)} -  $${prices[prices.length - 1]?.price}`}
         left={() => (
           <View style={styles(theme).icon}>
             <Icon />
