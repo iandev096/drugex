@@ -17,7 +17,8 @@ export const darkTheme = {
     primary: '#2A4574',
     background: '#0A192F',
     border: "rgba(255,255,255,0.1)",
-    text: '#DBFFF6'
+    text: '#DBFFF6',
+    placeholder: '#2A4574',
   },
 };
 

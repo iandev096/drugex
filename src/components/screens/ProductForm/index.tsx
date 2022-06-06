@@ -10,6 +10,8 @@ import { Button, TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HEIGHT } from "../../../constants/dimensions";
 import { isIos } from "../../../constants/platform";
+import useDarkMode from "../../../contexts/theme/hooks/useDarkMode";
+import useAppTheme from "../../../hooks/useAppTheme";
 import styles from "./styles";
 
 type Props = {

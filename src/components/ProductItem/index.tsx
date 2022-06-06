@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import { View } from "react-native";
 import { Caption, IconButton, List, Text } from "react-native-paper";
 import { Price } from "../../contexts/app/type";
+import useDarkMode from "../../contexts/theme/hooks/useDarkMode";
 import useAppTheme from "../../hooks/useAppTheme";
 import { truncateString } from "../../util/string";
 import Pill1 from "../icons/Pill1";
@@ -32,6 +33,7 @@ export default function ProductItem({
   onEdit,
 }: ProductItemProps) {
   const theme = useAppTheme();
+  const {darkMode} = useDarkMode();
 
   const Icon = useMemo(() => (even ? Pill1 : Pill2), [even]);
 
@@ -78,7 +80,7 @@ export default function ProductItem({
           />
           <IconButton
             size={22}
-            icon="trash-can"
+            icon={darkMode ? "trash-can-outline" : "trash-can"}
             onPress={onDelete}
             testID="btn:onDelete"
           />
