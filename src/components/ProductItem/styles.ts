@@ -22,7 +22,7 @@ const styles = (theme: Theme) =>
     listAccordion: { paddingVertical: 16 },
     icon: { paddingHorizontal: 8 },
     pastPrices: { fontSize: 12, textTransform: "uppercase", fontWeight: "600" },
-    custIcon: { justifyContent: "center" },
+    custIcon: { justifyContent: "center", marginLeft: 9 },
   });
 
 export default styles;

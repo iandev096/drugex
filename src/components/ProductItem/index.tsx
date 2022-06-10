@@ -1,7 +1,6 @@
-import { formatDistance, formatRelative } from "date-fns";
 import React, { useMemo } from "react";
 import { View } from "react-native";
-import { Caption, IconButton, List, Text } from "react-native-paper";
+import {  IconButton, List } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Price } from "../../contexts/app/type";
 import useDarkMode from "../../contexts/theme/hooks/useDarkMode";
