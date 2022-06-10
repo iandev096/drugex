@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import AppCtxAction from "../action";
 import { initialCtxState } from "../context";
 import { AppCtxState, Price, Product, ResponseData } from "../type";
-import { fetchProducts, getStoredState } from "../util";
+import { fetchProducts, getStoredState, sortPriceList } from "../util";
 
 export default function useAppCtxInit(
   state: AppCtxState,
@@ -27,7 +27,7 @@ export default function useAppCtxInit(
           const product: Product = { id: cur.id, name: cur.name };
           const prices: Price[] = cur.prices;
           acc.products.push(product);
-          acc.prices[cur.id] = prices;
+          acc.prices[cur.id] = prices.sort(sortPriceList);
           acc.lastProductId += 1;
           return acc;
         }, initialCtxState);

@@ -62,3 +62,7 @@ export function getNewPriceList(newPrice: number, prices?: Price[]): Price[] {
 
   return [...prices, newPriceObj];
 }
+
+export function sortPriceList(a: Price, b: Price) {
+  return new Date(a.date).getTime() - new Date(b.date).getTime();
+}

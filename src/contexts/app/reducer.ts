@@ -18,8 +18,8 @@ export default function AppCtxReducer(
       return {
         ...state,
         products: [
-          ...state.products,
           { id: newProductId, name: action.payload.name },
+          ...state.products,
         ],
         prices: {
           ...state.prices,
