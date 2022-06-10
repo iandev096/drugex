@@ -2,6 +2,7 @@ import { formatDistance, formatRelative } from "date-fns";
 import React, { useMemo } from "react";
 import { View } from "react-native";
 import { Caption, IconButton, List, Text } from "react-native-paper";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Price } from "../../contexts/app/type";
 import useDarkMode from "../../contexts/theme/hooks/useDarkMode";
 import useAppTheme from "../../hooks/useAppTheme";
@@ -33,7 +34,7 @@ export default function ProductItem({
   onEdit,
 }: ProductItemProps) {
   const theme = useAppTheme();
-  const {darkMode} = useDarkMode();
+  const { darkMode } = useDarkMode();
 
   const Icon = useMemo(() => (even ? Pill1 : Pill2), [even]);
 
@@ -41,7 +42,9 @@ export default function ProductItem({
     <View style={[styles(theme).productItem, !last && styles(theme).border]}>
       <List.Accordion
         right={() => <></>}
-        title={`${truncateString(name)} -  $${prices[prices.length - 1]?.price}`}
+        title={`${truncateString(name)} -  $${
+          prices[prices.length - 1]?.price
+        }`}
         left={() => (
           <View style={styles(theme).icon}>
             <Icon />
@@ -57,6 +60,14 @@ export default function ProductItem({
           title={
             prices.length === 1 ? "No Past Price Available" : "Past Price(s)"
           }
+          left={() => (
+            <View style={styles(theme).custIcon}>
+              <MaterialCommunityIcons
+                name="clock-outline"
+                color={theme.colors.text}
+              />
+            </View>
+          )}
           right={() => <></>}
         />
         {prices

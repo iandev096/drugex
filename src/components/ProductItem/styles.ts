@@ -4,7 +4,7 @@ import { Theme } from "../../../theme";
 const styles = (theme: Theme) =>
   StyleSheet.create({
     productItem: {
-      position: "relative"
+      position: "relative",
     },
     buttonGroup: {
       position: "absolute",
@@ -21,7 +21,8 @@ const styles = (theme: Theme) =>
     },
     listAccordion: { paddingVertical: 16 },
     icon: { paddingHorizontal: 8 },
-    pastPrices: { fontSize: 12, textTransform: "uppercase", fontWeight: '600' }
+    pastPrices: { fontSize: 12, textTransform: "uppercase", fontWeight: "600" },
+    custIcon: { justifyContent: "center" },
   });
 
 export default styles;
