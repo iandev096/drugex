@@ -8,10 +8,7 @@ export default function AppCtxReducer(
 ): AppCtxState {
   switch (action.type) {
     case "ADD_PRODUCT":
-      const newProductId = getNextProductId(
-        state.products,
-        state.lastProductId
-      );
+      const newProductId = getNextProductId(state.lastProductId);
       const prices = state.prices[newProductId];
       const nextLastProductId = state.lastProductId + 1;
 

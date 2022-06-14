@@ -17,7 +17,6 @@ function AppCtxProvider({ children }: Props) {
     function handleContextChanges() {
       if (state.initializeStatus === "INITIALIZED") {
         setStoredState(state).then();
-        // TODO: handle error scenario
       }
     },
     [state]

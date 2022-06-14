@@ -30,10 +30,7 @@ export function fetchProducts() {
   return axios.get("http://www.mocky.io/v2/5c3e15e63500006e003e9795");
 }
 
-export function getNextProductId(itemList: Product[], lastProductId: number) {
-  if (itemList?.length === 0 || !itemList) {
-    return 1;
-  }
+export function getNextProductId(lastProductId: number) {
   return lastProductId + 1;
 }
 
